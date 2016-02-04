@@ -18,9 +18,9 @@ objectAssign(env, {
 
 module.exports = {
   target: 'web',
-  entry: ['./client/index.jsx'],
+  entry: [path.join(__dirname, '../index.jsx')],
   output: {
-    path: path.join(__dirname, 'assets/js'),
+    path: path.join(__dirname, '../../assets/js'),
     publicPath: '/js/',
     filename: 'bundle.js'
   },
