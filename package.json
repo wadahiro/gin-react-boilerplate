@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "set NODE_ENV=production && webpack -p --config ./client/webpack/webpack.config.js && go-bindata -o ./server/bindata.go assets/... && go build -o ./dist/web server/bindata.go server/main.go",
-    "dev": "webpack -w --config ./client/webpack/webpack.config.js"
+    "dev": "go-bindata -debug -o ./server/bindata.go assets/... && webpack -w --config ./client/webpack/webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
