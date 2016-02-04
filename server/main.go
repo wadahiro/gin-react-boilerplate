@@ -40,15 +40,10 @@ func BinaryFileSystem(root string) *binaryFileSystem {
 func main() {
 	r := gin.Default()
 
-    // We can't use router.Static method to use '/' for static files.
-    // see https://github.com/gin-gonic/gin/issues/75
-	if gin.IsDebugging() {
-		r.Use(static.Serve("/", static.LocalFile("assets", true)))
-		// r.Static("/", "./assets")
-	} else {
-		r.Use(static.Serve("/", BinaryFileSystem("assets")))
-		// r.StaticFS("/", assetFS())
-	}
+	// We can't use router.Static method to use '/' for static files.
+	// see https://github.com/gin-gonic/gin/issues/75
+	// r.StaticFS("/", assetFS())
+	r.Use(static.Serve("/", BinaryFileSystem("assets")))
 
 	// add routes
 	r.GET("/api/home", controllers.Home)
