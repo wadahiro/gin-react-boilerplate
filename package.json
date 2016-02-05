@@ -6,7 +6,8 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "set NODE_ENV=production && webpack -p --config ./client/webpack/webpack.config.js && go-bindata -o ./server/bindata.go assets/... && go build -o ./dist/web server/bindata.go server/main.go",
+    "build-win": "set NODE_ENV=production && webpack -p --config ./client/webpack/webpack.config.js && go-bindata -o ./server/bindata.go assets/... && go build -o ./dist/web server/bindata.go server/main.go",
+    "build": "NODE_ENV=production && webpack -p --config ./client/webpack/webpack.config.js && go-bindata -o ./server/bindata.go assets/... && go build -o ./dist/web server/bindata.go server/main.go",
     "bindata": "go-bindata -debug -o ./server/bindata.go assets/...",
     "dev": "webpack -w --config ./client/webpack/webpack.config.js"
   },
