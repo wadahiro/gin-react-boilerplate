@@ -18,33 +18,32 @@ This project is a boilerplate for [Facebook React](https://facebook.github.io/re
 
 1. Install some golang tools by `go get`
 
-```bash
+ ```bash
 go get -u github.com/jteeuwen/go-bindata/...
 go get -u github.com/elazarl/go-bindata-assetfs/...
 go get -u github.com/gin-gonic/gin
 go get -u github.com/gin-gonic/contrib/static
 go get -u github.com/pilu/fresh
-```
-
+ ```
 2. Install JavaScript dependencies
 
-```bash
+ ```bash
 npm install
-```
+ ```
 
 ## Run with development mode
 
 1. Generate bindata.go.
 
-```bash
+ ```bash
 npm run bindata
-```
+ ```
 
 2. Start webpack and gin with watch mode.
 
-```bash
+ ```bash
 npm run dev & fresh
-```
+ ```
 
 
 ## License
