@@ -45,6 +45,13 @@ npm run bindata
 npm run dev & fresh
  ```
 
+## Release Build
+
+Run webpack with production mode, go-bindata and go build in turn. All you have to do is run `npm run build`. The artifact is created under `./dist` directory.
+
+```bash
+npm run build
+```
 
 ## License
 
