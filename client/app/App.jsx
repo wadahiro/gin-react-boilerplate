@@ -23,7 +23,7 @@ export default class App extends React.Component {
         const { message } = this.state;
         
         return (
-            <div>{ message }</div>
+            <div>Message: { message }</div>
         );
     }
 }
