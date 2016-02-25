@@ -34,7 +34,7 @@ npm install
 
 ## Run with development mode
 
-1. Generate bindata.go.
+1. Generate bindata.go with debug mode.
 
  ```bash
 npm run bindata
@@ -48,10 +48,19 @@ npm run dev & fresh
 
 ## Release Build
 
-Run webpack with production mode, go-bindata and go build in turn. All you have to do is run `npm run build`. The artifact is created under `./dist` directory.
+Run webpack with production mode, go-bindata and go build in turn. All you have to do is run `npm run build`.
 
 ```bash
 npm run build
+```
+
+The artifacts are created under `./dist` directory.
+
+```bash
+$ ls -l dist
+total 9936
+-rw-r--r--    1 root root 10175248 Feb 25 10:10 web_linux_amd64
+-rwxr-xr-x    1 root root 10172416 Feb 25 10:10 web_windows_amd64.exe
 ```
 
 ## License
