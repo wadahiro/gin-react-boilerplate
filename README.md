@@ -24,6 +24,7 @@ go get -u github.com/elazarl/go-bindata-assetfs/...
 go get -u github.com/gin-gonic/gin
 go get -u github.com/gin-gonic/contrib/static
 go get -u github.com/pilu/fresh
+go get github.com/mitchellh/gox
  ```
 2. Install JavaScript dependencies
 
