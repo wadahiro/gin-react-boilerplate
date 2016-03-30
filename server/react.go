@@ -105,7 +105,7 @@ func (r *React) Handle(c *gin.Context) {
 // react app Response parsing.
 // Feel free to add any other keys to this struct
 // and return value for this key at ecmascript side.
-// Keep it sync with: src/app/client/router/toString.js:23
+// Keep it sync with: client/index.jsx
 type Resp struct {
 	UUID       string        `json:"uuid"`
 	Error      string        `json:"error"`
@@ -200,7 +200,7 @@ type ReactVM struct {
 func (r *ReactVM) Handle(req map[string]interface{}) <-chan Resp {
 	b, err := json.Marshal(req)
 	Must(err)
-	// Keep it sync with `src/app/client/index.js:4`
+	// Keep it sync with `client/index.jsx`
 	r.PevalString(`main(` + string(b) + `, __goServerCallback__)`)
 	return r.ch
 }
