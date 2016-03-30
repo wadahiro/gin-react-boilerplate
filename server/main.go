@@ -1,12 +1,15 @@
 package main
 
 import (
+	"log"
 	"os"
 
+	"html/template"
 	"net/http"
 	"strings"
 
 	"github.com/elazarl/go-bindata-assetfs"
+	"github.com/gin-gonic/contrib/renders/multitemplate"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/nu7hatch/gouuid"
@@ -41,12 +44,7 @@ func BinaryFileSystem(root string) *binaryFileSystem {
 func main() {
 	r := gin.Default()
 
-	r.LoadHTMLGlob("server/templates/*")
-
-	// We can't use router.Static method to use '/' for static files.
-	// see https://github.com/gin-gonic/gin/issues/75
-	// r.StaticFS("/", assetFS())
-	r.Use(static.Serve("/", BinaryFileSystem("assets")))
+	r.HTMLRender = loadTemplates("react.html")
 
 	r.Use(func(c *gin.Context) {
 		id, _ := uuid.NewV4()
@@ -62,11 +60,36 @@ func main() {
 		r,
 	)
 
-	r.GET("/test", react.Handle)
+	r.GET("/", react.Handle)
+
+	// We can't use router.Static method to use '/' for static files.
+	// see https://github.com/gin-gonic/gin/issues/75
+	// r.StaticFS("/", assetFS())
+	r.Use(static.Serve("/", BinaryFileSystem("assets")))
 
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
 		port = "3000"
 	}
 	r.Run(":" + port)
+}
+
+func loadTemplates(list ...string) multitemplate.Render {
+	r := multitemplate.New()
+
+	for _, x := range list {
+		templateString, err := Asset("server/templates/" + x)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		tmplMessage, err := template.New(x).Parse(string(templateString))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		r.Add(x, tmplMessage)
+	}
+
+	return r
 }

@@ -12,11 +12,9 @@ if (typeof window !== 'undefined') {
     ReactDOM.render(<App />, document.getElementById('app'));
 } else {
     global.main = (options, callback) => {
-        console.log('render server side', JSON.stringify(options))
+        // console.log('render server side', JSON.stringify(options))
         const s = ReactDOMServer.renderToString(React.createElement(App, {}));
-        
-        console.log(s)
-        
+
         callback(JSON.stringify({
             uuid: options.uuid,
             app: s,

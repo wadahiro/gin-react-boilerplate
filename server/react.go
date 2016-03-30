@@ -63,10 +63,7 @@ func (r *React) Handle(c *gin.Context) {
 		}
 	}()
 
-	fmt.Println("vm get.")
-
 	vm := r.get()
-	fmt.Println("vm get.")
 
 	start := time.Now()
 
@@ -122,7 +119,6 @@ type Resp struct {
 
 // HTMLApp returns a application template
 func (r Resp) HTMLApp() template.HTML {
-    fmt.Println("HTMLApp", r.App)
 	return template.HTML(r.App)
 }
 
@@ -158,14 +154,17 @@ func newDuktapePool(filePath string, size int, engine http.Handler) *duktapePool
 // newReactVM loads bundle.js to context.
 func newReactVM(filePath string, engine http.Handler) *ReactVM {
 
-	fmt.Println("vm get.")
-
 	vm := &ReactVM{
 		Context: duktape.New(),
 		ch:      make(chan Resp, 1),
 	}
 
-	vm.PevalString(`var console = {log:print,warn:print,error:print,info:print}`)
+	err := vm.PevalString(`var console = {log:print,warn:print,error:print,info:print}`)
+	Must(err)
+
+	// err = vm.PevalString(`var process = {env: {NODE_ENV: 'production'}}`)
+	// Must(err)
+
 	fetch.PushGlobal(vm.Context, engine)
 	app, err := Asset(filePath)
 	Must(err)
@@ -176,7 +175,6 @@ func newReactVM(filePath string, engine http.Handler) *ReactVM {
 		vm.ch <- func() Resp {
 			var re Resp
 			json.Unmarshal([]byte(result), &re)
-            fmt.Println("JSON:", result)
 			return re
 		}()
 		return 0
@@ -185,6 +183,7 @@ func newReactVM(filePath string, engine http.Handler) *ReactVM {
 	fmt.Printf("%s loaded\n", filePath)
 	if err := vm.PevalString(string(app)); err != nil {
 		derr := err.(*duktape.Error)
+        fmt.Println("Eval error", derr.Stack)
 		panic(derr.Stack)
 	}
 	vm.PopN(vm.GetTop())

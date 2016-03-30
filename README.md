@@ -24,7 +24,9 @@ go get -u github.com/elazarl/go-bindata-assetfs/...
 go get -u github.com/gin-gonic/gin
 go get -u github.com/gin-gonic/contrib/static
 go get -u github.com/pilu/fresh
+go get -u gopkg.in/olebedev/go-duktape.v2
  ```
+
 2. Install JavaScript dependencies
 
  ```bash
@@ -45,12 +47,20 @@ npm run bindata
 npm run dev & fresh
  ```
 
+3. Access to http://localhost:3000/
+
 ## Release Build
 
 Run webpack with production mode, go-bindata and go build in turn. All you have to do is run `npm run build`. The artifact is created under `./dist` directory.
 
+### for Windows
 ```bash
-npm run build
+npm run build-win
+```
+
+### for Linux
+```bash
+npm run build-linux
 ```
 
 ## License
